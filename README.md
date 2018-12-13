@@ -18,7 +18,7 @@ composer72 () {
         --volume /etc/passwd:/etc/passwd:ro \
         --volume /etc/group:/etc/group:ro \
         --volume $(pwd):/app \
-        composer:7.2 "$@"
+        flownative/composer:7.2 "$@"
 }
 ```
 
