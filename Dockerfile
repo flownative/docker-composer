@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/flownative/docker/php:7.2.17-1
+FROM registry.gitlab.com/flownative/docker/php:7.1.28-1
 MAINTAINER Robert Lemke <robert@flownative.com>
 
 COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
