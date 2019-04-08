@@ -50,13 +50,13 @@ isCommand() {
 
 # check if the first argument passed in looks like a flag
 if [ "$(printf %c "$1")" = '-' ]; then
-  set -- composer "$@"
+  set -- runas composer "$@"
 # check if the first argument passed in is composer
 elif [ "$1" = 'composer' ]; then
-  set -- "$@"
+  set -- runas "$@"
 # check if the first argument passed in matches a known command
 elif isCommand "$1"; then
-  set -- composer "$@"
+  set -- runas composer "$@"
 fi
 
 exec "$@"
