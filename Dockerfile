@@ -1,7 +1,7 @@
-FROM registry.gitlab.com/flownative/docker/php:7.1.28-1
+FROM registry.gitlab.com/flownative/docker/php:7.2.21-1
 MAINTAINER Robert Lemke <robert@flownative.com>
 
-COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.9 /usr/bin/composer /usr/bin/composer
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY runas.sh /usr/bin/runas
 
