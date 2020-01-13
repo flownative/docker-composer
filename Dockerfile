@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/flownative/docker/php:7.1.33-3
+FROM docker.pkg.github.com/flownative/docker-beach-php/beach-php:7.1.33-3
 MAINTAINER Robert Lemke <robert@flownative.com>
 
 COPY --from=composer:1.9 /usr/bin/composer /usr/bin/composer
