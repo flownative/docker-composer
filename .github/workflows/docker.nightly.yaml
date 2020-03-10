@@ -1,10 +1,10 @@
-name: Daily Releases
+name: Nightly Builds
 on:
   schedule:
     - cron: '30 0 * * *'
 
 jobs:
-  release-daily-7_1:
+  build-7_1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,13 +17,23 @@ jobs:
         uses: flownative/action-git-latest-release@master
 
       - name: Build Docker image
+        id: build_image
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
           image_name: flownative/docker-composer/composer
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
           registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
 
-  release-daily-7_2:
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
+  build-7_2:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,13 +46,23 @@ jobs:
         uses: flownative/action-git-latest-release@master
 
       - name: Build Docker image
+        id: build_image
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
           image_name: flownative/docker-composer/composer
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
           registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
 
-  release-daily-7_3:
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
+  build-7_3:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -55,13 +75,23 @@ jobs:
         uses: flownative/action-git-latest-release@master
 
       - name: Build Docker image
+        id: build_image
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
           image_name: flownative/docker-composer/composer
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
           registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
 
-  release-daily-7_4:
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
+  build-7_4:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -74,8 +104,18 @@ jobs:
         uses: flownative/action-git-latest-release@master
 
       - name: Build Docker image
+        id: build_image
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
           image_name: flownative/docker-composer/composer
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
           registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
+
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
