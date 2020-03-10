@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/flownative/docker-beach-php/beach-php:7.4.1-2
+FROM docker.pkg.github.com/flownative/docker-beach-php/beach-php:7.4.2
 MAINTAINER Robert Lemke <robert@flownative.com>
 
 COPY --from=composer:1.9 /usr/bin/composer /usr/bin/composer
