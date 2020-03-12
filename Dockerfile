@@ -1,7 +1,7 @@
 FROM docker.pkg.github.com/flownative/docker-beach-php/beach-php:7.2.27
 MAINTAINER Robert Lemke <robert@flownative.com>
 
-COPY --from=composer:1.9 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 ENV COMPOSER_HOME /tmp
