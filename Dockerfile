@@ -11,8 +11,8 @@ ENV APPLICATION_PATH="/application" \
     COMPOSER_HOME=/home/composer \
     PHP_MEMORY_LIMIT=750M
 
-COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 COPY root-files /
+COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
 USER root
 RUN /build.sh
