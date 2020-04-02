@@ -1,14 +1,22 @@
-FROM docker.pkg.github.com/flownative/docker-beach-php/beach-php:7.4.2
+ARG PHP_BASE_IMAGE
+
+FROM ${PHP_BASE_IMAGE}
 MAINTAINER Robert Lemke <robert@flownative.com>
 
+LABEL org.label-schema.name="Composer"
+LABEL org.label-schema.description="Docker image providing Composer based on Beach PHP images"
+LABEL org.label-schema.vendor="Flownative GmbH"
+
+ENV APPLICATION_PATH="/application" \
+    COMPOSER_HOME=/home/composer \
+    PHP_MEMORY_LIMIT=750M
+
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY root-files /
 
-ENV COMPOSER_HOME /tmp
-ENV BEACH_PHP_MEMORY_LIMIT 512M
+USER root
+RUN /build.sh
 
-USER 1000
-WORKDIR /app
-
-ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+USER composer
+WORKDIR /application
 CMD ["composer"]

@@ -1,4 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
 
 isCommand() {
   for cmd in \
