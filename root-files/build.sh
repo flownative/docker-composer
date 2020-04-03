@@ -7,6 +7,7 @@
 
 . "${FLOWNATIVE_LIB_PATH}/banner.sh"
 . "${FLOWNATIVE_LIB_PATH}/log.sh"
+. "${FLOWNATIVE_LIB_PATH}/packages.sh"
 
 set -o errexit
 set -o nounset
@@ -40,8 +41,19 @@ build_create_directories() {
 }
 
 # ---------------------------------------------------------------------------------------
+# build_install_packages() - Install additional packages
+#
+# @return void
+#
+build_install_packages() {
+    packages_install git
+    packages_remove_docs_and_caches
+}
+
+# ---------------------------------------------------------------------------------------
 # Main routine
 
 banner_flownative 'Composer'
 build_create_user
 build_create_directories
+build_install_packages
