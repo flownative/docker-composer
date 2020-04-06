@@ -38,7 +38,7 @@ jobs:
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
-          image_name: flownative/docker-beach-php/beach-php
+          image_name: flownative/docker-composer/composer
           image_tag: ${{ steps.latest_php_version.outputs.value }}
           git_repository_url: https://github.com/${{ github.repository }}
           git_sha: ${{ github.sha }}
@@ -50,12 +50,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           source_registry_username: github
           source_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           target_registry_username: github
           target_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
@@ -97,7 +97,7 @@ jobs:
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
-          image_name: flownative/docker-beach-php/beach-php
+          image_name: flownative/docker-composer/composer
           image_tag: ${{ steps.latest_php_version.outputs.value }}
           git_repository_url: https://github.com/${{ github.repository }}
           git_sha: ${{ github.sha }}
@@ -109,12 +109,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           source_registry_username: github
           source_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           target_registry_username: github
           target_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
@@ -156,7 +156,7 @@ jobs:
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
-          image_name: flownative/docker-beach-php/beach-php
+          image_name: flownative/docker-composer/composer
           image_tag: ${{ steps.latest_php_version.outputs.value }}
           git_repository_url: https://github.com/${{ github.repository }}
           git_sha: ${{ github.sha }}
@@ -168,12 +168,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           source_registry_username: github
           source_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           target_registry_username: github
           target_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
@@ -214,7 +214,7 @@ jobs:
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
-          image_name: flownative/docker-beach-php/beach-php
+          image_name: flownative/docker-composer/composer
           image_tag: ${{ steps.latest_php_version.outputs.value }}
           git_repository_url: https://github.com/${{ github.repository }}
           git_sha: ${{ github.sha }}
@@ -226,12 +226,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           source_registry_username: github
           source_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-beach-php/beach-php
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer
           target_registry_username: github
           target_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
