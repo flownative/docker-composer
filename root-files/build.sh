@@ -46,7 +46,7 @@ build_create_directories() {
 # @return void
 #
 build_install_packages() {
-    packages_install git ssh patch
+    packages_install git ssh patch unzip
     packages_remove_docs_and_caches
 }
 
