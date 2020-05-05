@@ -12,7 +12,7 @@ Composer and Local Beach or Flownative Beach, because the PHP images
 used for the development and hosting environment will be exactly the
 same like the one used as a base for this image.
 
-## Configuration
+## Shell Configuration
 
 To simplify the `docker run` calls, you may want to configure your shell
 to do the heavy lifting for you. The easiest way is to declare functions
@@ -43,6 +43,26 @@ Now you can run Composer simply by running something like the following:
 composer72 -v update
 ```
 
-## Authentication
+## Private Packagist
 
-tbd.
+If dependencies are located in Private Packagist, you need to provide
+the HTTP Basic Auth credentials to the Composer container via the
+`COMPOSER_AUTH` environment variable. Credentials are provided as a JSON
+string ( [see Composer documentation](https://getcomposer.org/doc/articles/http-basic-authentication.md)).
+
+```
+composer74 () {
+    tty=
+    tty -s && tty=--tty
+    docker run \
+        $tty \
+        --interactive \
+        --rm \
+        --user $(id -u):$(id -g) \
+        -e COMPOSER_AUTH="{"http-basic":{"repo.packagist.com":{"username":"token","password":"a524b…8ace"}}" \
+        --volume /etc/passwd:/etc/passwd:ro \
+        --volume /etc/group:/etc/group:ro \
+        --volume $(pwd):/app \
+        flownative/composer:7.4 "$@"
+}
+```
