@@ -32,7 +32,9 @@ composer74 () {
         --user $(id -u):$(id -g) \
         --volume /etc/passwd:/etc/passwd:ro \
         --volume /etc/group:/etc/group:ro \
-        --volume $(pwd):/app \
+        --volume $(pwd):/application:delegated \
+        --volume $HOME/.composer/cache:/home/composer/cache:delegated \
+        --volume $HOME/.composer/auth.json:/home/composer/auth.json \
         flownative/composer:7.4 "$@"
 }
 ```
@@ -62,7 +64,9 @@ composer74 () {
         -e COMPOSER_AUTH="{"http-basic":{"repo.packagist.com":{"username":"token","password":"a524b…8ace"}}" \
         --volume /etc/passwd:/etc/passwd:ro \
         --volume /etc/group:/etc/group:ro \
-        --volume $(pwd):/app \
+        --volume $(pwd):/application:delegated \
+        --volume $HOME/.composer/cache:/home/composer/cache:delegated \
+        --volume $HOME/.composer/auth.json:/home/composer/auth.json \
         flownative/composer:7.4 "$@"
 }
 ```
