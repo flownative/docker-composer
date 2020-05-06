@@ -9,7 +9,7 @@ LABEL org.label-schema.vendor="Flownative GmbH"
 
 ENV APPLICATION_PATH="/application" \
     COMPOSER_HOME=/home/composer \
-    PHP_MEMORY_LIMIT=750M
+    PHP_MEMORY_LIMIT=-1
 
 COPY root-files /
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
