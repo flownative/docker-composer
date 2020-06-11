@@ -32,6 +32,7 @@ isCommand() {
     "prohibits" \
     "remove" \
     "require" \
+    "run" \
     "run-script" \
     "search" \
     "self-update" \
