@@ -282,22 +282,6 @@ jobs:
           git_sha: ${{ github.sha }}
           registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
 
-      - name: Tag semver releases
-        uses: flownative/action-docker-publish-semver@v1
-        with:
-          tag_ref: ${{ steps.build_image.outputs.image_tag }}-root
-          tag_latest: 'no'
-
-          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer
-          source_registry_username: github
-          source_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
-          source_registry_endpoint: https://docker.pkg.github.com/v2/
-
-          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer
-          target_registry_username: github
-          target_registry_password: ${{ secrets.GITHUB_BOT_TOKEN }}
-          target_registry_endpoint: https://docker.pkg.github.com/v2/
-
       - name: Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
