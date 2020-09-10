@@ -12,7 +12,7 @@ ENV APPLICATION_PATH="/application" \
     PHP_MEMORY_LIMIT=-1
 
 COPY root-files /
-COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10.10 /usr/bin/composer /usr/bin/composer
 
 USER root
 RUN /build.sh
