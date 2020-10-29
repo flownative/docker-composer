@@ -12,7 +12,6 @@ ENV APPLICATION_PATH="/application" \
     PHP_MEMORY_LIMIT=-1
 
 COPY root-files /
-COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
 USER root
 RUN /build.sh
@@ -20,3 +19,6 @@ RUN /build.sh
 USER composer
 WORKDIR /application
 CMD ["composer"]
+
+# This will be added by the Github workflow:
+# COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
