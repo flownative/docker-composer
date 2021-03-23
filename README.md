@@ -42,7 +42,7 @@ composer74 () {
 Now you can run Composer simply by running something like the following:
 
 ```
-composer72 -v update
+composer74 -v update
 ```
 
 ## Private Packagist
