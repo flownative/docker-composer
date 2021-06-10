@@ -552,7 +552,7 @@ jobs:
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
-          image_name: flownative/docker-composer/composer2
+          image_name: flownative/docker-composer/composer2-root
           image_tag: ${{ steps.latest_php_version.outputs.value }}
           git_repository_url: https://github.com/${{ github.repository }}
           git_sha: ${{ github.sha }}
@@ -618,7 +618,7 @@ jobs:
         uses: flownative/action-docker-build@v1
         with:
           tag_ref: ${{ steps.latest_version.outputs.tag }}
-          image_name: flownative/docker-composer/composer2
+          image_name: flownative/docker-composer/composer2-root
           image_tag: ${{ steps.latest_php_version.outputs.value }}
           git_repository_url: https://github.com/${{ github.repository }}
           git_sha: ${{ github.sha }}
