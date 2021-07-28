@@ -1,7 +1,7 @@
 ARG PHP_BASE_IMAGE
 
 FROM ${PHP_BASE_IMAGE}
-MAINTAINER Robert Lemke <robert@flownative.com>
+LABEL org.opencontainers.image.authors="Robert Lemke <robert@flownative.com>"
 
 LABEL org.label-schema.name="Composer"
 LABEL org.label-schema.description="Docker image providing Composer based on Beach PHP images"
