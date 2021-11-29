@@ -1026,12 +1026,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2-root
           source_registry_username: github
           source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2-root
           target_registry_username: github
           target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
@@ -1089,12 +1089,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2-root
           source_registry_username: github
           source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2-root
           target_registry_username: github
           target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
@@ -1152,12 +1152,12 @@ jobs:
           tag_ref: ${{ steps.build_image.outputs.image_tag }}
           tag_latest: 'no'
 
-          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2-root
           source_registry_username: github
           source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
           source_registry_endpoint: https://docker.pkg.github.com/v2/
 
-          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2-root
           target_registry_username: github
           target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
           target_registry_endpoint: https://docker.pkg.github.com/v2/
