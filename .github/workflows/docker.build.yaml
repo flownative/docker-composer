@@ -259,6 +259,68 @@ jobs:
           event-type: image-built
           client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_base_name": "composer", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
 
+  build-8_1:
+    runs-on: ubuntu-latest
+    env:
+      PHP_BASE_IMAGE: docker.pkg.github.com/flownative/docker-php/php:8.1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 100
+
+      - name: Determine latest released version
+        id: latest_version
+        uses: flownative/action-git-latest-release@master
+
+      - name: Determine latest built PHP 8.1 version
+        id: latest_php_version
+        uses: flownative/action-docker-get-label@master
+        with:
+          image: docker.pkg.github.com/flownative/docker-php/php:8.1
+          label: org.label-schema.version
+          registry_username: github
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Add COPY statement for Composer 1.x
+        run: |
+          echo "COPY --from=composer:1 /usr/bin/composer /usr/bin/composer" >> Dockerfile
+
+      - name: Build Docker image
+        id: build_image
+        uses: flownative/action-docker-build@v1
+        with:
+          tag_ref: ${{ steps.latest_version.outputs.tag }}
+          image_name: flownative/docker-composer/composer
+          image_tag: ${{ steps.latest_php_version.outputs.value }}
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+
+      - name: Tag semver releases
+        uses: flownative/action-docker-publish-semver@v1
+        with:
+          tag_ref: ${{ steps.build_image.outputs.image_tag }}
+          tag_latest: 'no'
+
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer
+          source_registry_username: github
+          source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          source_registry_endpoint: https://docker.pkg.github.com/v2/
+
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer
+          target_registry_username: github
+          target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          target_registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_base_name": "composer", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
   build-7_2_composer_2:
     runs-on: ubuntu-latest
     env:
@@ -464,6 +526,68 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.pkg.github.com/flownative/docker-php/php:8.0
+          label: org.label-schema.version
+          registry_username: github
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Add COPY statement for Composer 2.x
+        run: |
+          echo "COPY --from=composer:2 /usr/bin/composer /usr/bin/composer" >> Dockerfile
+
+      - name: Build Docker image
+        id: build_image
+        uses: flownative/action-docker-build@v1
+        with:
+          tag_ref: ${{ steps.latest_version.outputs.tag }}
+          image_name: flownative/docker-composer/composer2
+          image_tag: ${{ steps.latest_php_version.outputs.value }}
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+
+      - name: Tag semver releases
+        uses: flownative/action-docker-publish-semver@v1
+        with:
+          tag_ref: ${{ steps.build_image.outputs.image_tag }}
+          tag_latest: 'no'
+
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          source_registry_username: github
+          source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          source_registry_endpoint: https://docker.pkg.github.com/v2/
+
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          target_registry_username: github
+          target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          target_registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_base_name": "composer2", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
+  build-8_1_composer_2:
+    runs-on: ubuntu-latest
+    env:
+      PHP_BASE_IMAGE: docker.pkg.github.com/flownative/docker-php/php:8.1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 100
+
+      - name: Determine latest released version
+        id: latest_version
+        uses: flownative/action-git-latest-release@master
+
+      - name: Determine latest built PHP 8.1 version
+        id: latest_php_version
+        uses: flownative/action-docker-get-label@master
+        with:
+          image: docker.pkg.github.com/flownative/docker-php/php:8.1
           label: org.label-schema.version
           registry_username: github
           registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
@@ -771,6 +895,72 @@ jobs:
           event-type: image-built
           client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_base_name": "composer-root", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
 
+  build-8_1-root:
+    runs-on: ubuntu-latest
+    env:
+      PHP_BASE_IMAGE: docker.pkg.github.com/flownative/docker-php/php:8.1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 100
+
+      - name: Determine latest released version
+        id: latest_version
+        uses: flownative/action-git-latest-release@master
+
+      - name: Determine latest built PHP 8.1 version
+        id: latest_php_version
+        uses: flownative/action-docker-get-label@master
+        with:
+          image: docker.pkg.github.com/flownative/docker-php/php:8.1
+          label: org.label-schema.version
+          registry_username: github
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Add COPY statement for Composer 1.x
+        run: |
+          echo "COPY --from=composer:1 /usr/bin/composer /usr/bin/composer" >> Dockerfile
+
+      - name: Add USER statement for root
+        run: |
+          echo "USER root" >> Dockerfile
+
+      - name: Build Docker image
+        id: build_image
+        uses: flownative/action-docker-build@v1
+        with:
+          tag_ref: ${{ steps.latest_version.outputs.tag }}
+          image_name: flownative/docker-composer/composer-root
+          image_tag: ${{ steps.latest_php_version.outputs.value }}
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+
+      - name: Tag semver releases
+        uses: flownative/action-docker-publish-semver@v1
+        with:
+          tag_ref: ${{ steps.build_image.outputs.image_tag }}
+          tag_latest: 'no'
+
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer-root
+          source_registry_username: github
+          source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          source_registry_endpoint: https://docker.pkg.github.com/v2/
+
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer-root
+          target_registry_username: github
+          target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          target_registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_base_name": "composer-root", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
   build-7_3_composer_2-root:
     runs-on: ubuntu-latest
     env:
@@ -922,6 +1112,72 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.pkg.github.com/flownative/docker-php/php:8.0
+          label: org.label-schema.version
+          registry_username: github
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Add COPY statement for Composer 2.x
+        run: |
+          echo "COPY --from=composer:2 /usr/bin/composer /usr/bin/composer" >> Dockerfile
+
+      - name: Add USER statement for root
+        run: |
+          echo "USER root" >> Dockerfile
+
+      - name: Build Docker image
+        id: build_image
+        uses: flownative/action-docker-build@v1
+        with:
+          tag_ref: ${{ steps.latest_version.outputs.tag }}
+          image_name: flownative/docker-composer/composer2-root
+          image_tag: ${{ steps.latest_php_version.outputs.value }}
+          git_repository_url: https://github.com/${{ github.repository }}
+          git_sha: ${{ github.sha }}
+          registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+
+      - name: Tag semver releases
+        uses: flownative/action-docker-publish-semver@v1
+        with:
+          tag_ref: ${{ steps.build_image.outputs.image_tag }}
+          tag_latest: 'no'
+
+          source_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          source_registry_username: github
+          source_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          source_registry_endpoint: https://docker.pkg.github.com/v2/
+
+          target_image_name: docker.pkg.github.com/flownative/docker-composer/composer2
+          target_registry_username: github
+          target_registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          target_registry_endpoint: https://docker.pkg.github.com/v2/
+
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
+          event-type: image-built
+          client-payload: '{"image_name": "${{ steps.build_image.outputs.image_name }}", "image_base_name": "composer2-root", "image_tag": "${{ steps.build_image.outputs.image_tag }}"}'
+
+  build-8_1_composer_2-root:
+    runs-on: ubuntu-latest
+    env:
+      PHP_BASE_IMAGE: docker.pkg.github.com/flownative/docker-php/php:8.1
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+          fetch-depth: 100
+
+      - name: Determine latest released version
+        id: latest_version
+        uses: flownative/action-git-latest-release@master
+
+      - name: Determine latest built PHP 8.1 version
+        id: latest_php_version
+        uses: flownative/action-docker-get-label@master
+        with:
+          image: docker.pkg.github.com/flownative/docker-php/php:8.1
           label: org.label-schema.version
           registry_username: github
           registry_password: ${{ secrets.FLOWNATIVE_BOT_TOKEN }}
