@@ -30,7 +30,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.2
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -90,7 +90,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.3
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -149,7 +149,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.4
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -208,7 +208,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.0
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -267,7 +267,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.1
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -326,7 +326,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.2
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -385,7 +385,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.3
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -444,7 +444,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.4
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -503,7 +503,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.0
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -562,7 +562,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.1
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -621,7 +621,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.2
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -684,7 +684,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.3
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -747,7 +747,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.4
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -810,7 +810,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.0
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -873,7 +873,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.1
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 1.x
         run: |
@@ -936,7 +936,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.3
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -999,7 +999,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:7.4
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -1062,7 +1062,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.0
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
@@ -1125,7 +1125,7 @@ jobs:
         uses: flownative/action-docker-get-label@master
         with:
           image: docker.io/flownative/php:8.1
-          label: org.label-schema.version
+          label: org.opencontainers.image.version
 
       - name: Add COPY statement for Composer 2.x
         run: |
