@@ -1,0 +1,108 @@
+name: Build Docker images
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [php-images-built]
+  push:
+    branches-ignore:
+      - '**'
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [ "7.4", "8.0", "8.1" ]
+        user: [ "composer", "root" ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'main'
+          fetch-depth: 100
+
+      - name: Determine latest released version
+        id: latest_version
+        uses: flownative/action-git-latest-release@master
+
+      - run: |
+          sudo chmod -R ugo+rwX . && shopt -s dotglob && rm -rf *
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.latest_version.outputs.tag }}
+          fetch-depth: 100
+
+      - name: Determine latest built PHP ${{ matrix.php }} version
+        id: latest_php_version
+        uses: flownative/action-docker-get-label@master
+        with:
+          image: europe-docker.pkg.dev/flownative/docker/php:${{ matrix.php }}
+          label: org.opencontainers.image.version
+          registry_endpoint: https://europe-docker.pkg.dev
+          registry_username: '_json_key'
+          registry_password: ${{ secrets.GOOGLE_ARTIFACTS_PASSWORD_DOCKER }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          flavor: |
+            latest=false
+          images: |
+            flownative/composer
+            europe-docker.pkg.dev/flownative/docker/composer
+          labels: |
+            org.opencontainers.image.title=Composer
+            org.opencontainers.image.description=Docker image providing Composer for Beach and Local Beach
+            org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.vendor=Flownative GmbH
+            org.opencontainers.image.authors=Robert Lemke <robert@flownative.com>
+            org.opencontainers.image.version=${{ steps.latest_php_version.outputs.value }}
+          tags: |
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.latest_php_version.outputs.value }}
+            type=semver,pattern={{version}},value=${{ steps.latest_php_version.outputs.value }}
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_IO_REGISTRY_USER }}
+          password: ${{ secrets.DOCKER_IO_REGISTRY_PASSWORD }}
+
+      - name: Login to Google Artifacts Registry
+        uses: docker/login-action@v1
+        with:
+          registry: europe-docker.pkg.dev/flownative/docker
+          username: '_json_key'
+          password: ${{ secrets.GOOGLE_ARTIFACTS_PASSWORD_DOCKER }}
+
+      - name: Add COPY statement for Composer
+        run: |
+          echo "COPY --from=composer:1 /usr/bin/composer /usr/bin/composer" >> Dockerfile
+
+      - name: Add USER statement
+        run: |
+          echo "USER ${{ matrix.user }}" >> Dockerfile
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          build-args: |
+            PHP_BASE_IMAGE=europe-docker.pkg.dev/flownative/docker/php:${{ steps.latest_php_version.outputs.value }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

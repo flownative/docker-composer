@@ -1,11 +1,6 @@
 ARG PHP_BASE_IMAGE
 
 FROM ${PHP_BASE_IMAGE}
-LABEL org.opencontainers.image.authors="Robert Lemke <robert@flownative.com>"
-
-LABEL org.label-schema.name="Composer"
-LABEL org.label-schema.description="Docker image providing Composer based on Beach PHP images"
-LABEL org.label-schema.vendor="Flownative GmbH"
 
 ENV APPLICATION_PATH="/application" \
     COMPOSER_HOME=/home/composer \
@@ -16,9 +11,9 @@ COPY root-files /
 USER root
 RUN /build.sh
 
-USER composer
 WORKDIR /application
 CMD ["composer"]
 
 # This will be added by the Github workflow:
-# COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
+# COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# USER composer
