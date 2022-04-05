@@ -1,4 +1,4 @@
-name: Build Docker images
+name: Build Composer 1 Docker images
 on:
   workflow_dispatch:
   repository_dispatch:
