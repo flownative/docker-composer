@@ -53,8 +53,8 @@ jobs:
           flavor: |
             latest=false
           images: |
-            flownative/composer2
-            europe-docker.pkg.dev/flownative/docker/composer2
+            ${{ matrix.user == 'root' && 'flownative/composer2-root' || 'flownative/composer2' }}
+            ${{ matrix.user == 'root' && 'europe-docker.pkg.dev/flownative/docker/composer2-root' || 'europe-docker.pkg.dev/flownative/docker/composer2' }}
           labels: |
             org.opencontainers.image.title=Composer
             org.opencontainers.image.description=Docker image providing Composer 2 for Beach and Local Beach
