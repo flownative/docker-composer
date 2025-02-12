@@ -38,7 +38,7 @@ jobs:
 
       - name: Determine latest built PHP ${{ matrix.php }} version
         id: latest_php_version
-        uses: flownative/action-docker-get-label@master
+        uses: flownative/action-docker-get-label@v1
         with:
           image: europe-docker.pkg.dev/flownative/docker/php:${{ matrix.php }}
           label: org.opencontainers.image.version
@@ -97,7 +97,7 @@ jobs:
           echo "USER ${{ matrix.user }}" >> Dockerfile
 
       - name: Build Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
