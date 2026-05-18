@@ -40,11 +40,11 @@ jobs:
         id: latest_php_version
         uses: flownative/action-docker-get-label@v1
         with:
-          image: europe-docker.pkg.dev/flownative/docker/php:${{ matrix.php }}
+          image: harbor.flownative.io/docker/php:${{ matrix.php }}
           label: org.opencontainers.image.version
-          registry_endpoint: https://europe-docker.pkg.dev
-          registry_username: '_json_key'
-          registry_password: ${{ secrets.GOOGLE_ARTIFACTS_PASSWORD_DOCKER }}
+          registry_endpoint: https://harbor.flownative.io
+          registry_username: ${{ secrets.HARBOR_DOCKER_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_DOCKER_PASSWORD }}
 
       - name: Docker meta
         id: meta
@@ -54,7 +54,7 @@ jobs:
             latest=false
           images: |
             ${{ matrix.user == 'root' && 'flownative/composer2-root' || 'flownative/composer2' }}
-            ${{ matrix.user == 'root' && 'europe-docker.pkg.dev/flownative/docker/composer2-root' || 'europe-docker.pkg.dev/flownative/docker/composer2' }}
+            ${{ matrix.user == 'root' && 'harbor.flownative.io/docker/composer2-root' || 'harbor.flownative.io/docker/composer2' }}
           labels: |
             org.opencontainers.image.title=Composer
             org.opencontainers.image.description=Docker image providing Composer 2 for Beach and Local Beach
@@ -81,12 +81,12 @@ jobs:
           username: ${{ secrets.DOCKER_IO_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_IO_REGISTRY_PASSWORD }}
 
-      - name: Login to Google Artifacts Registry
+      - name: Login to Harbor
         uses: docker/login-action@v4
         with:
-          registry: europe-docker.pkg.dev/flownative/docker
-          username: '_json_key'
-          password: ${{ secrets.GOOGLE_ARTIFACTS_PASSWORD_DOCKER }}
+          registry: harbor.flownative.io
+          username: ${{ secrets.HARBOR_DOCKER_USERNAME }}
+          password: ${{ secrets.HARBOR_DOCKER_PASSWORD }}
 
       - name: Add COPY statement for Composer
         run: |
@@ -103,6 +103,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           build-args: |
-            PHP_BASE_IMAGE=europe-docker.pkg.dev/flownative/docker/php:${{ steps.latest_php_version.outputs.value }}
+            PHP_BASE_IMAGE=harbor.flownative.io/docker/php:${{ steps.latest_php_version.outputs.value }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
