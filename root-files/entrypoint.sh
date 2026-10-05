@@ -9,10 +9,13 @@ isCommand() {
   for cmd in \
     "about" \
     "archive" \
+    "audit" \
     "browse" \
+    "bump" \
     "check-platform-reqs" \
     "clear-cache" \
     "clearcache" \
+    "completion" \
     "config" \
     "create-project" \
     "depends" \
@@ -20,6 +23,7 @@ isCommand() {
     "dump-autoload" \
     "dumpautoload" \
     "exec" \
+    "fund" \
     "global" \
     "help" \
     "home" \
@@ -29,8 +33,11 @@ isCommand() {
     "licenses" \
     "list" \
     "outdated" \
+    "policy" \
     "prohibits" \
+    "reinstall" \
     "remove" \
+    "repository" \
     "require" \
     "run" \
     "run-script" \
@@ -42,6 +49,7 @@ isCommand() {
     "suggests" \
     "update" \
     "upgrade" \
+    "upgrade-all" \
     "validate" \
     "why" \
     "why-not"
