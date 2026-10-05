@@ -22,7 +22,7 @@ For example, in order to use Composer based on PHP 7.4 with ZSH, add the
 following to your `.zshrc` or the like:
 
 ```
-composer74 () {
+composer85 () {
     tty=
     tty -s && tty=--tty
     docker run \
@@ -35,14 +35,14 @@ composer74 () {
         --volume $(pwd):/application:delegated \
         --volume $HOME/.composer/cache:/home/composer/cache:delegated \
         --volume $HOME/.composer/auth.json:/home/composer/auth.json \
-        flownative/composer:7.4 "$@"
+        flownative/composer:8.5 "$@"
 }
 ```
 
 Now you can run Composer simply by running something like the following:
 
 ```
-composer74 -v update
+composer85 -v update
 ```
 
 ## Private Packagist
@@ -53,7 +53,7 @@ the HTTP Basic Auth credentials to the Composer container via the
 string ( [see Composer documentation](https://getcomposer.org/doc/articles/http-basic-authentication.md)).
 
 ```
-composer74 () {
+composer85 () {
     tty=
     tty -s && tty=--tty
     docker run \
@@ -67,6 +67,6 @@ composer74 () {
         --volume $(pwd):/application:delegated \
         --volume $HOME/.composer/cache:/home/composer/cache:delegated \
         --volume $HOME/.composer/auth.json:/home/composer/auth.json \
-        flownative/composer:7.4 "$@"
+        flownative/composer:8.5 "$@"
 }
 ```
