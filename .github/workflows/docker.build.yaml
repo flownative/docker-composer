@@ -15,11 +15,11 @@ jobs:
 
     strategy:
       matrix:
-        php: [ "8.1", "8.2", "8.3", "8.4", "8.5" ]
+        php: [ "8.2", "8.3", "8.4", "8.5" ]
         user: [ "composer", "root" ]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: 'main'
           fetch-depth: 100
@@ -31,7 +31,7 @@ jobs:
       - run: |
           sudo chmod -R ugo+rwX . && shopt -s dotglob && rm -rf *
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ steps.latest_version.outputs.tag }}
           fetch-depth: 100
@@ -87,10 +87,6 @@ jobs:
           registry: harbor.flownative.io
           username: ${{ secrets.HARBOR_DOCKER_USERNAME }}
           password: ${{ secrets.HARBOR_DOCKER_PASSWORD }}
-
-      - name: Add COPY statement for Composer
-        run: |
-          echo "COPY --from=composer:2 /usr/bin/composer /usr/bin/composer" >> Dockerfile
 
       - name: Add USER statement
         run: |
