@@ -70,3 +70,26 @@ composer85 () {
         flownative/composer:8.5 "$@"
 }
 ```
+
+## Building without GitHub Actions
+
+If GitHub Actions is not available, `bin/build-and-push.sh` builds the
+images on a workstation the way the build workflow does: from the latest
+release tag, for `linux/amd64` and `linux/arm64`, for the users
+`composer` and `root`, with the same tags and labels. The PHP branches
+come from `.github/workflows/docker.build.yaml` of that tag, and each
+image is based on the newest `harbor.flownative.io/docker/php` image of
+its branch, so rebuild [docker-php](https://github.com/flownative/docker-php)
+first if needed.
+
+```bash
+docker login
+docker login harbor.flownative.io
+
+bin/build-and-push.sh                                # show what would be built
+bin/build-and-push.sh --push                         # build and push everything
+bin/build-and-push.sh --push --php 8.4 --user root   # only one variant
+```
+
+`--build` builds without pushing, `--ref <tag>` builds another tag, and
+`--no-cache` builds from scratch. See `bin/build-and-push.sh --help`.
