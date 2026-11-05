@@ -12,6 +12,9 @@ BASE_IMAGE="harbor.flownative.io/docker/php"
 PLATFORMS="linux/amd64,linux/arm64"
 SOURCE_URL="https://github.com/flownative/docker-composer"
 WORKFLOW_FILE=".github/workflows/docker.build.yaml"
+# Like on GitHub, the matrix comes from the workflow on main, while the
+# code is the one of the latest release tag.
+WORKFLOW_REF="origin/main"
 
 # The images of a variant: "composer" runs as the composer user, "root" as root
 images_for() {
@@ -107,19 +110,22 @@ trap cleanup EXIT
 git -C "${repository_root}" worktree add --quiet --detach "${worktree}" "${ref}"
 revision="$(git -C "${worktree}" rev-parse HEAD)"
 created="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+workflow="${work_directory}/workflow.yaml"
+git -C "${repository_root}" show "${WORKFLOW_REF}:${WORKFLOW_FILE}" > "${workflow}" \
+    || fail "Could not read ${WORKFLOW_FILE} from ${WORKFLOW_REF}"
 
 # --- Matrix -------------------------------------------------------------------
 
 # Reads a matrix line such as: php: [ "8.2", "8.3", "8.4", "8.5" ]
 matrix_values() {
-    sed -n "s/^[[:space:]]*$1:[[:space:]]*\[\(.*\)\].*\$/\1/p" "${worktree}/${WORKFLOW_FILE}" \
+    sed -n "s/^[[:space:]]*$1:[[:space:]]*\[\(.*\)\].*\$/\1/p" "${workflow}" \
         | head -n 1 | tr -d '"'"'" | tr ',' ' ' | tr -s ' ' | sed 's/^ //; s/ $//'
 }
 
 php_matrix="$(matrix_values php)"
-[ -n "${php_matrix}" ] || fail "No PHP branches found in ${WORKFLOW_FILE} of ${ref}"
+[ -n "${php_matrix}" ] || fail "No PHP branches found in ${WORKFLOW_FILE} of ${WORKFLOW_REF}"
 user_matrix="$(matrix_values user)"
-[ -n "${user_matrix}" ] || fail "No users found in ${WORKFLOW_FILE} of ${ref}"
+[ -n "${user_matrix}" ] || fail "No users found in ${WORKFLOW_FILE} of ${WORKFLOW_REF}"
 
 branches=""
 for branch in ${php_matrix}; do
@@ -129,7 +135,7 @@ for branch in ${php_matrix}; do
         branches="${branches} ${branch}"
     fi
 done
-[ -n "${branches}" ] || fail "PHP ${php_filter} is not built by ${ref} (available: ${php_matrix})"
+[ -n "${branches}" ] || fail "PHP ${php_filter} is not built according to ${WORKFLOW_REF} (available: ${php_matrix})"
 
 users=""
 for user in ${user_matrix}; do
@@ -141,7 +147,7 @@ for user in ${user_matrix}; do
         users="${users} ${user}"
     fi
 done
-[ -n "${users}" ] || fail "User ${user_filter} is not built by ${ref} (available: ${user_matrix})"
+[ -n "${users}" ] || fail "User ${user_filter} is not built according to ${WORKFLOW_REF} (available: ${user_matrix})"
 
 # Like flownative/action-docker-get-label: the PHP version is the one of the
 # newest PHP image of that branch.
@@ -170,6 +176,7 @@ tags_for() {
 # --- Plan ---------------------------------------------------------------------
 
 info "Source:    ${ref} (${revision})"
+info "Matrix:    ${WORKFLOW_FILE} on ${WORKFLOW_REF}"
 info "Platforms: ${PLATFORMS}"
 info "Mode:      ${mode}"
 info "Cache:     ${use_cache}"
