@@ -15,7 +15,7 @@ env:
 jobs:
   # The images are always built from the latest release.
   prepare:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       tag: ${{ steps.latest_version.outputs.tag }}
     steps:
@@ -153,7 +153,7 @@ jobs:
   # listed only once above.
   merge:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Download digests
         uses: actions/download-artifact@v8
