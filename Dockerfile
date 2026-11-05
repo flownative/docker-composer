@@ -14,7 +14,7 @@ RUN /build.sh
 WORKDIR /application
 CMD ["composer"]
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=harbor.flownative.io/docker.io/library/composer:2 /usr/bin/composer /usr/bin/composer
 
 # This will be added by the Github workflow, with "composer" or "root":
 # USER composer
